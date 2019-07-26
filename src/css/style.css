@@ -2,6 +2,11 @@
     margin-bottom: 20px;
 }
 
+.frase{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 #tabuleiro {
     width: 505px;
     height: 505px;
@@ -38,26 +43,30 @@
     text-align: center;
 }
 
-.cima .quadrado:first-child{
+.cima .quadrado:first-child {
     border-right: 3px solid black
 }
 
-.meio .quadrado:first-child{
+.meio .quadrado:first-child {
     border-right: 3px solid black
 }
 
-.baixo .quadrado:first-child{
+.baixo .quadrado:first-child {
     border-right: 3px solid black
 }
 
-.cima .quadrado:last-child{
+.cima .quadrado:last-child {
     border-left: 3px solid black
 }
 
-.meio .quadrado:last-child{
+.meio .quadrado:last-child {
     border-left: 3px solid black
 }
 
-.baixo .quadrado:last-child{
+.baixo .quadrado:last-child {
     border-left: 3px solid black
+}
+
+.botao{
+    margin-top: 15px;
 }
