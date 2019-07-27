@@ -1,7 +1,7 @@
 let tabuleiro = [];
 
 const winCombos = [
-    // Win Combos horizontal
+    // Win Combos Horizontal
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -17,7 +17,8 @@ const winCombos = [
 ];
 
 const jogador = 'X'
-const jogador2 = 'O'
+const computador = 'O'
+
 let playerTurn = 1;
 const frase = document.querySelector('.frase');
 
