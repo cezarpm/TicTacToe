@@ -1,72 +1,26 @@
-#titulo {
-    margin-bottom: 20px;
+body {
+    font-family: 'Varela', sans-serif;
+    font-size: 11pt;
+    font-weight: 300;
 }
 
-.frase{
-    margin-top: 15px;
-    margin-bottom: 15px;
+.bg-dark {
+    background-color: #333333 !important;
 }
 
-#tabuleiro {
-    width: 505px;
-    height: 505px;
-    border: 4px solid black;
-    margin: 0 auto;
+.navbar-brand {
+    font-size: 30px;
+    text-transform: uppercase;
+    font-family: 'Saira Stencil One', cursive;
 }
 
-.cima {
-    width: 500px;
-    height: 166px;
-    display: flex;
-    border-bottom: 3px solid black
+.navbar .container .collapse .form-inline a {
+    margin-left: 7px;
+    text-transform: uppercase;
 }
 
-.meio {
-    width: 500px;
-    height: 166px;
-    display: flex;
-}
-
-.baixo {
-    width: 500px;
-    height: 166px;
-    display: flex;
-    border-top: 3px solid black
-}
-
-.quadrado {
-    width: 166px;
-    height: 166px;
-    margin: 0 auto;
-    font-size: 100px;
-    color: red;
-    text-align: center;
-}
-
-.cima .quadrado:first-child {
-    border-right: 3px solid black
-}
-
-.meio .quadrado:first-child {
-    border-right: 3px solid black
-}
-
-.baixo .quadrado:first-child {
-    border-right: 3px solid black
-}
-
-.cima .quadrado:last-child {
-    border-left: 3px solid black
-}
-
-.meio .quadrado:last-child {
-    border-left: 3px solid black
-}
-
-.baixo .quadrado:last-child {
-    border-left: 3px solid black
-}
-
-.botao{
-    margin-top: 15px;
+.jumbotron{
+    color: #ffffff;
+    background: #202020;
+    border-radius: 0;
 }

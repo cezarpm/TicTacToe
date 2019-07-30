@@ -1,58 +1,95 @@
 let tabuleiro = [];
 
-const winCombos = [
-    // Win Combos Horizontal
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-
-    // Win Combos Vertical
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-
-    // Win Combos angulo(esquecikkkj)
-    [0, 4, 8],
-    [2, 4, 6],
-];
-
 const jogador = 'X'
 const computador = 'O'
 
+let podeJogar = true;
+let id;
 let playerTurn = 1;
 const frase = document.querySelector('.frase');
+const tabuleiroElement = document.querySelector('#tabuleiro');
 
 document.querySelector('#botao-id').addEventListener('click', resetar);
 
-document.addEventListener('click', event => {
-    if (event.target.classList.contains('quadrado') && playerTurn == 1) {
-        tabuleiro[event.target.id] = event.target.id;
-        update(tabuleiro, jogador);
-        verifica()
+tabuleiroElement.addEventListener('click', event => {
+
+    if (podeJogar) {
+
+        if (document.getElementById(event.target.id).innerHTML == 'X' || document.getElementById(event.target.id).innerHTML == 'O') {
+            return;
+        }
+        
+        if (event.target.classList.contains('quadrado') && playerTurn == 1) {
+            tabuleiro[event.target.id] = jogador;
+            id = event.target.id
+            playerTurn = 2;
+            update(id, tabuleiro, jogador, verifica(tabuleiro, jogador));
+            
+            
+        } else if (event.target.classList.contains('quadrado') && playerTurn == 2) {
+            tabuleiro[event.target.id] = computador;
+            id = event.target.id
+            playerTurn = 1;
+            update(id, tabuleiro, computador, verifica(tabuleiro, computador));
+           
+        }
     }
+    
 });
 
 function resetar() {
-    update(tabuleiro, '')
-    tabuleiro = [];
+    for (let i = 0; i <= 8; i++) {
+
+        document.getElementById(i).innerHTML = '';
+    }
+    frase.innerHTML = '';
+    podeJogar = true;
     playerTurn = 1;
+    tabuleiro = [];
 }
 
-function update(tabuleiro, val) {
-    tabuleiro.forEach(id => {
-        let quadrado = document.getElementById(`${id}`);
-        quadrado.innerHTML = val;
-    })
+function update(id, tabuleiro, val, ganhou) {
+    for (let i = 0; i < tabuleiro.length; i++) {
+        const element = tabuleiro[i];
+
+        if (element === 'X') {
+            document.getElementById(id).innerHTML = val;
+        }
+
+        if (element === 'O') {
+            document.getElementById(id).innerHTML = val;
+        }
+    }
+    
+    if (ganhou) {
+        frase.innerHTML = ` Jogador ${ganhou} ganhou o jogo!!`
+        podeJogar = false;
+
+    }
 }
 
-function verifica() {
-    let vitoria = null;
+function verifica(tabuleiro, jogador) {
 
-    // winCombos.forEach( e => {
-    //     const sequencia = [tabuleiro[e[0]], tabuleiro[e[1]], tabuleiro[e[2]]];
+    let ganhou = '';
 
-    //     if( tabuleiro.every( index => index.innerText === sequencia[0].innerText && index.innerText !== '')) console.log(sequencia);
-    // })
+    let aux = jogador + jogador + jogador;
 
-    return vitoria;
+    // Verifica as horizontais
+    for (let i = 0; i < tabuleiro.length; i++) {
+        if(tabuleiro[i] + tabuleiro[i + 1] + tabuleiro[i + 2] == aux ){
+            ganhou = aux.substring(0, 1);
+        }
+    }
+
+    // Verifica as diagonais
+    if(tabuleiro[0] + tabuleiro[4] + tabuleiro[8] == aux || tabuleiro[2] + tabuleiro[4] + tabuleiro[6] == aux ){
+        ganhou = aux.substring(0, 1);
+    }
+
+    // Verifica as verticais
+    if(tabuleiro[0] + tabuleiro[3] + tabuleiro[6] == aux || tabuleiro[1] + tabuleiro[4] + tabuleiro[7] == aux || tabuleiro[2] + tabuleiro[5] + tabuleiro[8] == aux ){
+        ganhou = aux.substring(0, 1);
+    }
+
+    return ganhou;
 }
