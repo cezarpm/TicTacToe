@@ -1,4 +1,5 @@
-let tabuleiro = [];
+let tabuleiro;
+geraTabuleiro();
 
 const jogador = 'X'
 const computador = 'O'
@@ -18,24 +19,28 @@ tabuleiroElement.addEventListener('click', event => {
         if (document.getElementById(event.target.id).innerHTML == 'X' || document.getElementById(event.target.id).innerHTML == 'O') {
             return;
         }
-        
+
         if (event.target.classList.contains('quadrado') && playerTurn == 1) {
             tabuleiro[event.target.id] = jogador;
             id = event.target.id
             playerTurn = 2;
-            update(id, tabuleiro, jogador, verifica(tabuleiro, jogador));
-            
-            
+            update(id, tabuleiro, jogador);
+
+
         } else if (event.target.classList.contains('quadrado') && playerTurn == 2) {
             tabuleiro[event.target.id] = computador;
             id = event.target.id
             playerTurn = 1;
-            update(id, tabuleiro, computador, verifica(tabuleiro, computador));
-           
+            update(id, tabuleiro, computador);
+
         }
     }
-    
+
 });
+
+function geraTabuleiro() {
+    tabuleiro = Array(9).fill(null);
+}
 
 function resetar() {
     for (let i = 0; i <= 8; i++) {
@@ -46,9 +51,10 @@ function resetar() {
     podeJogar = true;
     playerTurn = 1;
     tabuleiro = [];
+    geraTabuleiro();
 }
 
-function update(id, tabuleiro, val, ganhou) {
+function update(id, tabuleiro, val) {
     for (let i = 0; i < tabuleiro.length; i++) {
         const element = tabuleiro[i];
 
@@ -60,36 +66,31 @@ function update(id, tabuleiro, val, ganhou) {
             document.getElementById(id).innerHTML = val;
         }
     }
-    
-    if (ganhou) {
-        frase.innerHTML = ` Jogador ${ganhou} ganhou o jogo!!`
+
+    let ganhador = verifica(tabuleiro);
+
+    if (ganhador) {
+        frase.innerHTML = ` Jogador ${ganhador} ganhou o jogo!!`
         podeJogar = false;
 
     }
 }
-
-function verifica(tabuleiro, jogador) {
-
-    let ganhou = '';
-
-    let aux = jogador + jogador + jogador;
-
-    // Verifica as horizontais
-    for (let i = 0; i < tabuleiro.length; i++) {
-        if(tabuleiro[i] + tabuleiro[i + 1] + tabuleiro[i + 2] == aux ){
-            ganhou = aux.substring(0, 1);
+function verifica(tabuleiro) {
+    const linhas = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+    ];
+    for (let i = 0; i < linhas.length; i++) {
+        const [a, b, c] = linhas[i];
+        if (tabuleiro[a] && tabuleiro[a] === tabuleiro[b] && tabuleiro[a] === tabuleiro[c]) {
+            return tabuleiro[a];
         }
     }
-
-    // Verifica as diagonais
-    if(tabuleiro[0] + tabuleiro[4] + tabuleiro[8] == aux || tabuleiro[2] + tabuleiro[4] + tabuleiro[6] == aux ){
-        ganhou = aux.substring(0, 1);
-    }
-
-    // Verifica as verticais
-    if(tabuleiro[0] + tabuleiro[3] + tabuleiro[6] == aux || tabuleiro[1] + tabuleiro[4] + tabuleiro[7] == aux || tabuleiro[2] + tabuleiro[5] + tabuleiro[8] == aux ){
-        ganhou = aux.substring(0, 1);
-    }
-
-    return ganhou;
+    return null;
 }
